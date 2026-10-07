@@ -1,3 +1,29 @@
 #!/usr/bin/env bash
 
 
+cd "$HOME"/Hämtningar
+
+mkdir -p images text_files audio video pdfs other
+
+inotifywait -m -e close_write -e moved_to --format "%f" . | while IFS= read -r filename; do
+        echo "$filename moved to Hämtningar"
+
+if [[ ! -d 'images' ]]; then
+    mkdir -p images
+fi
+
+if [[ ! -d 'pdfs' ]]; then
+    mkdir -p pdfs
+fi
+
+case "$filename" in
+    *.img|*.jpg|*.jpeg|*.png|*.gif) mv "$filename" images;;
+    *.txt|*.md) mv "$filename" text_files;;
+    *.aac|*.mp3|*.flac|*.waw) mv "$filename" audio;;
+    *.avi|*.mpg|*.mp4|*.flv) mv "$filename" video;;
+    *.pdf) mv "$filename" pdfs;;
+    *) mv "$filename" other;;
+esac
+                          done
+
+
