@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 
-cd ~/Hämtningar
+cd ~/Downloads
 
 inotifywait -m -e close_write -e moved_to --format "%f" . | while IFS= read -r filename; do
-        echo "$filename moved to Hämtningar"
+        echo "$filename moved to Downloads"
 
 case "$filename" in
     *.img|*.jpg|*.jpeg|*.png|*.gif) mkdir -p images && mv "$filename" images;;
