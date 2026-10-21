@@ -1,0 +1,10 @@
+[Unit]
+Description="Organize downloads directory"
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/dlorg
+
+[Install]
+WantedBy=default.target
